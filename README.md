@@ -8,6 +8,14 @@ Ce module permet de récupérer les données de consommation électrique grâce 
 
 ![schema](documentation/schematics.png)
 
+Fichier source [schematics Eagle](eagle/teleinfokit.sch)
+
 ## PCB
 
 ![pcb](documentation/board.png)
+
+Fichier source [board Eagle](eagle/teleinfokit.brd)
+
+### Gerber files
+
+Toutes les ressources de production générées par Eagle sont dans le dossier [CAMOutputs](CAMOutputs).
