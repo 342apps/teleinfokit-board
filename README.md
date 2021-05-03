@@ -1,8 +1,14 @@
 # teleinfokit-board
 
-Fichiers source Eagle, schema et PCB pour le firmware [teleinfokit](https://github.com/342apps/teleinfokit).
+## Firmware TeleInfoKit
 
-Ce module permet de récupérer les données de consommation électrique grâce aux données de télé-information du bus TIC des compteurs électriques français.
+Ce repo comprend les fichiers source Eagle, schema et PCB pour le module de collecte de tele-information [Teleinfokit](https://342apps.net/module-teleinfokit/) associé à son [firmware dédié](https://github.com/342apps/teleinfokit).
+
+Ce module permet de récupérer les données de consommation électrique grâce aux données de télé-information du bus TIC des compteurs électriques français et d'exploiter ces données dans une application de domotique telle que Home Assistant.
+
+## Compatibilité avec ESPHome
+
+Ce module est également compatible avec un firmware généré par [ESPHome](https://esphome.io/) pour une integration dans Home Assistant. Le fichier de configuration compatible avec ce module est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
 
 ## Schéma
 
