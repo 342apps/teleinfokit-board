@@ -36,7 +36,6 @@ ota:
 uart:
   id: uart_bus
   rx_pin: GPIO3
-  tx_pin: GPIO1
   baud_rate: 1200
   parity: EVEN
   data_bits: 7
@@ -96,3 +95,16 @@ interval:
     then:
       - display.page.show_next: oled
       - component.update: oled
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode: INPUT_PULLUP
+      inverted: True
+    name: teleinfokit_switch
+    on_click:
+      min_length: 50ms
+      max_length: 350ms
+      then:
+        - lambda: if (id(oled).is_on()) id(oled).turn_off(); else id(oled).turn_on();
