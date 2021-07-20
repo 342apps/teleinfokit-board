@@ -67,6 +67,13 @@ sensor:
     unit_of_measurement: "VA"
     icon: mdi:flash
     teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "IINST"
+    id: iinst
+    name: "iinst"
+    unit_of_measurement: "A"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
 
 i2c:
   sda: GPIO0
@@ -89,8 +96,11 @@ display:
           it.printf(0, 0, id(arial_font), "Conso: %.0f VA", id(papp).state);
       - id: page2
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).state);
+          it.printf(0, 0, id(arial_font), "Intensite: %.0f A", id(iinst).state);
       - id: page3
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).state);
+      - id: page4
         lambda: |-
           it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).state);
 
