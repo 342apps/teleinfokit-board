@@ -1,7 +1,7 @@
 # ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
 
 esphome:
-  name: teleinfokit_esphome
+  name: teleinfokit
   platform: ESP8266
   board: esp01_1m
 
@@ -14,7 +14,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Teleinfokit Esphome"
+    ssid: "Teleinfokit_AP"
     password: "CHANGE_ME"   # update to a random password
 
 captive_portal:
