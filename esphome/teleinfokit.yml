@@ -9,13 +9,13 @@ esphome:
 # update all CHANGE_ME values and remove # in front of the value
 
 wifi:
-  ssid: #"CHANGE_ME"  # update to you wifi SSID
-  password: #"CHANGE_ME"  # update to your wifi password
+  ssid: "CHANGE_ME"  # update to you wifi SSID
+  password: "CHANGE_ME"  # update to your wifi password
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Teleinfokit_AP"
-    password: #"CHANGE_ME"   # update to a random password
+    password: "CHANGE_ME"   # update to a random password
 
 captive_portal:
 
@@ -27,10 +27,10 @@ logger:
 
 # Enable Home Assistant API
 api:
-  password: #"CHANGE_ME"   # update to a random password
+  password: "CHANGE_ME"   # update to a random password
 
 ota:
-  password: #"CHANGE_ME"   # update to a random password
+  password: "CHANGE_ME"   # update to a random password
 
 
 uart:
@@ -40,29 +40,33 @@ uart:
   parity: EVEN
   data_bits: 7
 
+teleinfo:
+  id: myteleinfo
+  update_interval: 30s
+  historical_mode: true
+
 sensor:
   - platform: teleinfo
-    tags:
-     - tag_name: "HCHC"
-       sensor:
-        name: "hchc"
-        id: hchc
-        unit_of_measurement: "Wh"
-        icon: mdi:flash
-     - tag_name: "HCHP"
-       sensor:
-        id: hchp
-        name: "hchp"
-        unit_of_measurement: "Wh"
-        icon: mdi:flash
-     - tag_name: "PAPP"
-       sensor:
-        id: papp
-        name: "papp"
-        unit_of_measurement: "VA"
-        icon: mdi:flash
-    update_interval: 30s
-    historical_mode: true
+    tag_name: "HCHC"
+    id: hchc
+    name: "hchc"
+    unit_of_measurement: "Wh"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "HCHP"
+    id: hchp
+    name: "hchp"
+    unit_of_measurement: "Wh"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "PAPP"
+    id: papp
+    name: "papp"
+    unit_of_measurement: "VA"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
 
 i2c:
   sda: GPIO0
