@@ -5,17 +5,14 @@ esphome:
   platform: ESP8266
   board: esp01_1m
 
-
-# update all CHANGE_ME values and remove # in front of the value
-
 wifi:
-  ssid: "CHANGE_ME"  # update to you wifi SSID
-  password: "CHANGE_ME"  # update to your wifi password
+  ssid: !secret wifi_ssid
+  password: !secret wifi_key
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Teleinfokit_AP"
-    password: "CHANGE_ME"   # update to a random password
+    password: !secret ap_key
 
 captive_portal:
 
@@ -27,10 +24,11 @@ logger:
 
 # Enable Home Assistant API
 api:
-  password: "CHANGE_ME"   # update to a random password
+  password: !secret api_pass
 
 ota:
-  password: "CHANGE_ME"   # update to a random password
+  password: !secret ota_pass
+  id: my_ota
 
 
 uart:
@@ -49,28 +47,28 @@ sensor:
   - platform: teleinfo
     tag_name: "HCHC"
     id: hchc
-    name: "hchc"
+    name: "Index Heures Creuses"
     unit_of_measurement: "Wh"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "HCHP"
     id: hchp
-    name: "hchp"
+    name: "Index Heures Pleines"
     unit_of_measurement: "Wh"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "PAPP"
     id: papp
-    name: "papp"
+    name: "Puissance Actuelle"
     unit_of_measurement: "VA"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "IINST"
     id: iinst
-    name: "iinst"
+    name: "Intensité Actuelle"
     unit_of_measurement: "A"
     icon: mdi:flash
     teleinfo_id: myteleinfo
