@@ -52,6 +52,8 @@ sensor:
     name: "hchc"
     unit_of_measurement: "Wh"
     icon: mdi:flash
+    device_class: energy
+    state_class: measurement
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "HCHP"
@@ -59,6 +61,8 @@ sensor:
     name: "hchp"
     unit_of_measurement: "Wh"
     icon: mdi:flash
+    device_class: energy
+    state_class: measurement
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "PAPP"
