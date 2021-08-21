@@ -2,7 +2,7 @@
 Créez le fichier `secrets.yaml` dans le même répertoire que `teleinfokit.yaml` pour initialiser les valeurs suivantes :
 * `wifi_ssid` : le nom de votre réseau wi-fi
 * `wifi_key` : votre clé wi-fi
-* `ap_key` : la clé souhaitée pour le point d'accès qui sera créé si le Teleinfokit ne peut se connecter à votre réseau wif
+* `ap_key` : la clé souhaitée pour le point d'accès qui sera créé si le Teleinfokit ne peut se connecter à votre réseau wi-fi
 * `api_pass` : le mot de passe souhaité pour utiliser le TeleInfoKit avec Home-Assistant
 * `ota_pass` : le mot de passe pour les mise à jour via wi-fi
 
@@ -12,7 +12,7 @@ Créez le fichier `secrets.yaml` dans le même répertoire que `teleinfokit.yaml
 - Si vous souhaitez utiliser le caractère "\", vous devez en écrire deux.
   Ex : `"mon\\passe"`
 
-## exemple de fichier `secrets.yaml`` ##
+## exemple de fichier `secrets.yaml` ##
 ```yaml
 wifi_ssid: "Mon_wifi"
 wifi_key: "La clé de mon wi-Fi123"
