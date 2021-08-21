@@ -9,7 +9,7 @@ Créez le fichier `secrets.yaml` dans le même répertoire que `teleinfokit.yaml
 ### Notes ###
 - Une chaîne vide (`""`) permet de ne mettre aucune valeur.
   Exemple : `api_pass : ""` permet de ne mettre aucun mot de passe pour l'accès via Home-Assistant.
-- Si vous souhaitez utiliser le caractère "`", voud devez en écrire deux.
+- Si vous souhaitez utiliser le caractère "\", vous devez en écrire deux.
   Ex : `"mon\\passe"`
 
 ## exemple de fichier `secrets.yaml`` ##
