@@ -119,6 +119,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: True
     name: teleinfokit_switch
+    internal: true
     on_click:
       min_length: 50ms
       max_length: 350ms
