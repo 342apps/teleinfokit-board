@@ -48,20 +48,26 @@ sensor:
     tag_name: "HCHC"
     id: hchc
     name: "Index Heures Creuses"
-    unit_of_measurement: "Wh"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
     icon: mdi:flash
     device_class: energy
     state_class: total_increasing
     teleinfo_id: myteleinfo
+    filters:
+      - lambda: return x/1000.0;
   - platform: teleinfo
     tag_name: "HCHP"
     id: hchp
     name: "Index Heures Pleines"
-    unit_of_measurement: "Wh"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
     icon: mdi:flash
     device_class: energy
     state_class: total_increasing
     teleinfo_id: myteleinfo
+    filters:
+      - lambda: return x/1000.0;
   - platform: teleinfo
     tag_name: "PAPP"
     id: papp
