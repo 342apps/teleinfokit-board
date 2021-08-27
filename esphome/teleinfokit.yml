@@ -107,10 +107,10 @@ display:
           it.printf(0, 0, id(arial_font), "Intensite: %.0f A", id(iinst).state);
       - id: page3
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).state);
+          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).raw_state);
       - id: page4
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).state);
+          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).raw_state);
 
 interval:
   - interval: 5s
