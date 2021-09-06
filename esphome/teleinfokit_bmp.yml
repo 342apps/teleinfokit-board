@@ -1,0 +1,145 @@
+# ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
+
+esphome:
+  name: teleinfokit
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_key
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Teleinfokit_AP"
+    password: !secret ap_key
+
+captive_portal:
+
+# Enable logging
+logger:     
+  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
+  level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
+  esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
+
+# Enable Home Assistant API
+api:
+  password: !secret api_pass
+
+ota:
+  password: !secret ota_pass
+  id: my_ota
+
+
+uart:
+  id: uart_bus
+  rx_pin: GPIO3
+  baud_rate: 1200
+  parity: EVEN
+  data_bits: 7
+
+teleinfo:
+  id: myteleinfo
+  update_interval: 30s
+  historical_mode: true
+
+sensor:
+  - platform: teleinfo
+    tag_name: "HCHC"
+    id: hchc
+    name: "Index Heures Creuses"
+    unit_of_measurement: "Wh"
+    icon: mdi:flash
+    device_class: energy
+    state_class: measurement
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "HCHP"
+    id: hchp
+    name: "Index Heures Pleines"
+    unit_of_measurement: "Wh"
+    icon: mdi:flash
+    device_class: energy
+    state_class: measurement
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "PAPP"
+    id: papp
+    name: "Puissance Actuelle"
+    unit_of_measurement: "VA"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "IINST"
+    id: iinst
+    name: "Intensité Actuelle"
+    unit_of_measurement: "A"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+
+
+  - platform: bmp280
+    temperature:
+      name: "TeleInfoKit Température"
+      oversampling: 16x
+      id: teleinfokit_temperature
+    pressure:
+      name: "TeleInfoKit Pression"
+      id: teleinfokit_pressure
+    address: 0x76
+    update_interval: 30s
+
+i2c:
+  sda: GPIO0
+  scl: GPIO2
+
+font:
+  - file: "arial.ttf"
+    id: arial_font
+    size: 16
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x32"
+    id: oled
+    rotation: 180°
+    address: 0x3C
+    pages:
+      - id: page1
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Conso: %.0f VA", id(papp).state);
+      - id: page2
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Intensite: %.0f A", id(iinst).state);
+      - id: page3
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).state);
+      - id: page4
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).state);
+      - id: page5
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Temp: %.1f", id(teleinfokit_temperature).state);
+      - id: page6
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Pression: %.0f", id(teleinfokit_pressure).state);
+
+interval:
+  - interval: 5s
+    then:
+      - display.page.show_next: oled
+      - component.update: oled
+
+binary_sensor:
+  - platform: gpio
+    internal: true
+    pin:
+      number: GPIO1
+      mode: INPUT_PULLUP
+      inverted: True
+    name: teleinfokit_switch
+    on_click:
+      min_length: 50ms
+      max_length: 350ms
+      then:
+        - lambda: if (id(oled).is_on()) id(oled).turn_off(); else id(oled).turn_on();
