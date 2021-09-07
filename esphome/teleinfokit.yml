@@ -51,7 +51,7 @@ sensor:
     unit_of_measurement: "Wh"
     icon: mdi:flash
     device_class: energy
-    state_class: measurement
+    state_class: total_increasing
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "HCHP"
@@ -60,13 +60,14 @@ sensor:
     unit_of_measurement: "Wh"
     icon: mdi:flash
     device_class: energy
-    state_class: measurement
+    state_class: total_increasing
     teleinfo_id: myteleinfo
   - platform: teleinfo
     tag_name: "PAPP"
     id: papp
     name: "Puissance Actuelle"
     unit_of_measurement: "VA"
+    state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
@@ -74,6 +75,8 @@ sensor:
     id: iinst
     name: "Intensité Actuelle"
     unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
 
