@@ -11,7 +11,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Teleinfokit_AP"
+    ssid: "TeleInfoKit"
     password: !secret ap_key
 
 captive_portal:

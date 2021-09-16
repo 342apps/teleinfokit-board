@@ -8,9 +8,9 @@ Ce module permet de récupérer les données de consommation électrique grâce 
 
 ## Compatibilité avec ESPHome
 
-Ce module est également compatible avec un firmware généré par [ESPHome](https://esphome.io/) pour une integration dans Home Assistant. Le fichier de configuration compatible avec ce module est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
+Ce module est également compatible avec un firmware généré par [ESPHome](https://esphome.io/) pour une integration dans Home Assistant. 
 
-Une version du firmware avec un capteur de température/pression de type BMP280 sur le même bus I2C que l'écran est disponible également dans le dossier [esphome/teleinfokit_bmp.yml](./esphome/). Le capteur est connecté via les pins déportés sur le bord du circuit (SDA : `GPIO0` et SCL : `GPIO2`) pour le bus I2C et l'alimentation par le 3V3 également accessible.
+Le fichier de configuration compatible avec ce module ainsi que toute la documentation est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
 
 ## Schéma
 

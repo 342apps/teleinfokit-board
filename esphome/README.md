@@ -16,7 +16,7 @@ Créez le fichier `secrets.yaml` dans le même répertoire que `teleinfokit.yaml
 ```yaml
 wifi_ssid: "Mon_wifi"
 wifi_key: "La clé de mon wi-Fi123"
-ap_key: "pas de wifi000"
+ap_key: "givememydata"
 api_pass: "Welcome_HA"
 ota_pass: "passe_MAJ"
 ```
@@ -34,3 +34,9 @@ Dans le bloc `esphome`, rajouter :
 
 Mettez en suite à jour le TeleInfoKit.
 Une fois la mise à jour OTA terminée, supprimez les lignes ajoutées précédemment et changez la valeur de `ota_pass` dans votre fichier secrets.yaml.
+
+## Configuration avec des fonctionnalités hardware supplémentaires
+
+Une version du firmware avec un capteur de température/pression de type BMP280 sur le même bus I2C que l'écran est disponible également dans ce dossier (`teleinfokit_bmp.yml`). Le capteur est connecté via les pins déportés sur le bord du circuit (SDA : `GPIO0` et SCL : `GPIO2`) pour le bus I2C et l'alimentation par le 3V3 également accessible.
+
+Ce n'est qu'un exemple de ce qui peut être rajouté à l'aide du bus I2C.
