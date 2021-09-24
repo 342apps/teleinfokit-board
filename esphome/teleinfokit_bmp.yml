@@ -11,7 +11,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Teleinfokit_AP"
+    ssid: "TeleInfoKit"
     password: !secret ap_key
 
 captive_portal:
@@ -48,25 +48,32 @@ sensor:
     tag_name: "HCHC"
     id: hchc
     name: "Index Heures Creuses"
-    unit_of_measurement: "Wh"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
     icon: mdi:flash
     device_class: energy
-    state_class: measurement
+    state_class: total_increasing
     teleinfo_id: myteleinfo
+    filters:
+      - lambda: return x/1000.0;
   - platform: teleinfo
     tag_name: "HCHP"
     id: hchp
     name: "Index Heures Pleines"
-    unit_of_measurement: "Wh"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
     icon: mdi:flash
     device_class: energy
-    state_class: measurement
+    state_class: total_increasing
     teleinfo_id: myteleinfo
+    filters:
+      - lambda: return x/1000.0;
   - platform: teleinfo
     tag_name: "PAPP"
     id: papp
     name: "Puissance Actuelle"
     unit_of_measurement: "VA"
+    state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
@@ -74,6 +81,8 @@ sensor:
     id: iinst
     name: "Intensité Actuelle"
     unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
 
@@ -113,10 +122,10 @@ display:
           it.printf(0, 0, id(arial_font), "Intensite: %.0f A", id(iinst).state);
       - id: page3
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).state);
+          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).raw_state);
       - id: page4
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).state);
+          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).raw_state);
       - id: page5
         lambda: |-
           it.printf(0, 0, id(arial_font), "Temp: %.1f", id(teleinfokit_temperature).state);
@@ -132,12 +141,12 @@ interval:
 
 binary_sensor:
   - platform: gpio
-    internal: true
     pin:
       number: GPIO1
       mode: INPUT_PULLUP
       inverted: True
     name: teleinfokit_switch
+    internal: true
     on_click:
       min_length: 50ms
       max_length: 350ms
