@@ -11,7 +11,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "TeleInfoKit"
+    ssid: "Teleinfokit_AP"
     password: !secret ap_key
 
 captive_portal:
@@ -77,6 +77,18 @@ sensor:
     icon: mdi:flash
     teleinfo_id: myteleinfo
 
+
+  - platform: bmp280
+    temperature:
+      name: "TeleInfoKit Température"
+      oversampling: 16x
+      id: teleinfokit_temperature
+    pressure:
+      name: "TeleInfoKit Pression"
+      id: teleinfokit_pressure
+    address: 0x76
+    update_interval: 30s
+
 i2c:
   sda: GPIO0
   scl: GPIO2
@@ -105,6 +117,12 @@ display:
       - id: page4
         lambda: |-
           it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).state);
+      - id: page5
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Temp: %.1f", id(teleinfokit_temperature).state);
+      - id: page6
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "Pression: %.0f", id(teleinfokit_pressure).state);
 
 interval:
   - interval: 5s
@@ -114,12 +132,12 @@ interval:
 
 binary_sensor:
   - platform: gpio
+    internal: true
     pin:
       number: GPIO1
       mode: INPUT_PULLUP
       inverted: True
     name: teleinfokit_switch
-    internal: true
     on_click:
       min_length: 50ms
       max_length: 350ms

@@ -8,7 +8,9 @@ Ce module permet de récupérer les données de consommation électrique grâce 
 
 ## Compatibilité avec ESPHome
 
-Ce module est également compatible avec un firmware généré par [ESPHome](https://esphome.io/) pour une integration dans Home Assistant. Le fichier de configuration compatible avec ce module est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
+Ce module est également compatible avec un firmware généré par [ESPHome](https://esphome.io/) pour une integration dans Home Assistant. 
+
+Le fichier de configuration compatible avec ce module ainsi que toute la documentation est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
 
 ## Schéma
 
