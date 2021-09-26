@@ -55,7 +55,7 @@ sensor:
     state_class: total_increasing
     teleinfo_id: myteleinfo
     filters:
-      - lambda: return x/1000.0;
+      - multiply: 0.001
   - platform: teleinfo
     tag_name: "HCHP"
     id: hchp
@@ -67,7 +67,7 @@ sensor:
     state_class: total_increasing
     teleinfo_id: myteleinfo
     filters:
-      - lambda: return x/1000.0;
+      - multiply: 0.001
   - platform: teleinfo
     tag_name: "PAPP"
     id: papp
