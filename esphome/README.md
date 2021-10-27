@@ -40,3 +40,26 @@ Une fois la mise à jour OTA terminée, supprimez les lignes ajoutées précéde
 Une version du firmware avec un capteur de température/pression de type BMP280 sur le même bus I2C que l'écran est disponible également dans ce dossier (`teleinfokit_bmp.yml`). Le capteur est connecté via les pins déportés sur le bord du circuit (SDA : `GPIO0` et SCL : `GPIO2`) pour le bus I2C et l'alimentation par le 3V3 également accessible.
 
 Ce n'est qu'un exemple de ce qui peut être rajouté à l'aide du bus I2C.
+
+## écran éteint par défaut
+
+Par défaut, l'écran du est allumé dès le démarrage.
+La variable de substitution `off_on_boot` permet de définir si l'écran est éteint par défaut.
+Pour cela, il suffit de placer sa valeur à `"true`"
+
+### En ligne de commande
+
+Dans le répertoire où se trouve teleinfokit.yml :
+`esphome -s off_on_boot true teleinfokit.yml`
+
+### alternative YAML
+
+Grâce aux packages ESPHome, il est possible d'avoir l'écran éteint par défaut.
+Pour cela, dans le répertoire où se trouve le fichier teleinfokit.yml, créez un autre fichier yml ou yaml, par exemple main.yaml avec le contenu suivant :
+```yaml
+substitutions:
+  off_on_boot: 'true'
+
+packages:
+  teleinfokit: !include teleinfokit.yml
+```
