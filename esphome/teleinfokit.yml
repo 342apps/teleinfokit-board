@@ -69,6 +69,18 @@ sensor:
     filters:
       - multiply: 0.001
   - platform: teleinfo
+    tag_name: "BASE"
+    id: base
+    name: "Index Base"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
     tag_name: "PAPP"
     id: papp
     name: "Puissance Actuelle"
@@ -114,9 +126,12 @@ display:
       - id: page4
         lambda: |-
           it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).raw_state);
+      - id: page5
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "BASE: %.0f", id(base).raw_state);
 
 interval:
-  - interval: 5s
+  - interval: 2s
     then:
       - display.page.show_next: oled
       - component.update: oled
