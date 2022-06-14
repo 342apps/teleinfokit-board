@@ -1,9 +1,26 @@
 # ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
 
+substitutions:
+  off_on_boot: 'false'
+
+globals:
+  - id: oled_on_boot
+    type: bool
+    initial_value: ${off_on_boot}
+
 esphome:
   name: teleinfokit
   platform: ESP8266
   board: esp01_1m
+  # oled state on boot
+  on_boot:
+    priority: -100
+    then:
+      - if:
+          condition: 
+            - lambda: return id(oled_on_boot);
+          then:
+            - lambda: id(oled).turn_off();
 
 wifi:
   ssid: !secret wifi_ssid
@@ -133,8 +150,12 @@ display:
 interval:
   - interval: 2s
     then:
-      - display.page.show_next: oled
-      - component.update: oled
+      - if:
+          condition:
+            - lambda: return id(oled).is_on();
+          then:
+            - display.page.show_next: oled
+            - component.update: oled
 
 binary_sensor:
   - platform: gpio
