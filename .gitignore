@@ -15,5 +15,4 @@
 yarn.lock
 package-lock.json
 *.dict
-.vscode/settings.json
-
+/.vscode/settings.json
