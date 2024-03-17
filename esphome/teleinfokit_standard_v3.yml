@@ -1,53 +1,50 @@
 # ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
 
 esphome:
-  name: teleinfokit-std
-  friendly_name: teleinfokit-std
-
-esp8266:
+  name: teleinfokit
+  platform: ESP8266
   board: esp01_1m
 
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api_key
-
-ota:
-  password: !secret ota_key
-  
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "TeleInfoKit-std"
-    password: !secret wifi_ap_key
+    ssid: "TeleInfoKit"
+    password: !secret ap_key
 
-logger:
+captive_portal:
+
+logger:     
   baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
   level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
   esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
 
+# Enable Home Assistant API
+api:
+  password: !secret api_pass
+
+ota:
+  password: !secret ota_pass
+  id: my_ota
+
 uart:
   id: uart_bus
   rx_pin: GPIO3
-  baud_rate: 1200
+  baud_rate: 9600
   parity: EVEN
   data_bits: 7
 
 teleinfo:
   id: myteleinfo
-  update_interval: 30s
-  historical_mode: true
-
-captive_portal:
+  update_interval: 5s
+  historical_mode: false
+  uart_id: uart_bus
 
 sensor:
   - platform: teleinfo
-    tag_name: "HCHC"
-    id: hchc
-    name: "Index Heures Creuses"
+    tag_name: "EAST"
+    id: EAST
+    name: "Energie active soutirée totale"
     unit_of_measurement: "kWh"
     accuracy_decimals: 3
     icon: mdi:flash
@@ -57,9 +54,9 @@ sensor:
     filters:
       - multiply: 0.001
   - platform: teleinfo
-    tag_name: "HCHP"
-    id: hchp
-    name: "Index Heures Pleines"
+    tag_name: "EASF01"
+    id: EASF01
+    name: "Energie active soutirée Fournisseur, index 01"
     unit_of_measurement: "kWh"
     accuracy_decimals: 3
     icon: mdi:flash
@@ -69,9 +66,9 @@ sensor:
     filters:
       - multiply: 0.001
   - platform: teleinfo
-    tag_name: "BASE"
-    id: base
-    name: "Index Base"
+    tag_name: "EASF02"
+    id: EASF02
+    name: "Energie active soutirée Fournisseur, index 02"
     unit_of_measurement: "kWh"
     accuracy_decimals: 3
     icon: mdi:flash
@@ -81,26 +78,54 @@ sensor:
     filters:
       - multiply: 0.001
   - platform: teleinfo
-    tag_name: "PAPP"
-    id: papp
-    name: "Puissance Actuelle"
+    tag_name: "SINSTS"
+    id: SINSTS
+    name: "Puissance app. Instantanée soutirée"
     unit_of_measurement: "VA"
     state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
-    tag_name: "IINST"
-    id: iinst
-    name: "Intensité Actuelle"
+    tag_name: "IRMS1"
+    id: IRMS1
+    name: "Courant efficace, phase 1"
     unit_of_measurement: "A"
     device_class: current
     state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
   - platform: teleinfo
-    tag_name: "ADCO"
-    id: adco
-    name: "ADCO"
+    tag_name: "UMOY1"
+    id: UMOY1
+    name: "Tension moyenne, phase 1"
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "NTARF"
+    id: NTARF
+    name: "Numéro de l’index tarifaire en cours"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "ADSC"
+    id: ADSC
+    name: "Adresse Secondaire du Compteur"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "VTIC"
+    id: VTIC
+    name: "Version de la TIC"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "LTARF"
+    id: LTARF
+    name: "Label de l’index tarifaire en cours"
+    icon: mdi:flash
     teleinfo_id: myteleinfo
 
 i2c:
@@ -121,25 +146,16 @@ display:
     pages:
       - id: page1
         lambda: |-
-          it.printf(0, 0, id(arial_font), "Conso: %.0f VA", id(papp).state);
+          it.printf(0, 0, id(arial_font), "SINTS: %f", id(SINSTS).state);
       - id: page2
         lambda: |-
-          it.printf(0, 0, id(arial_font), "Intensite: %.0f A", id(iinst).state);
+          it.printf(0, 0, id(arial_font), "IRMS1: %f", id(IRMS1).state);
       - id: page3
         lambda: |-
-          it.printf(0, 0, id(arial_font), "HP: %.0f", id(hchp).raw_state);
-      - id: page4
-        lambda: |-
-          it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).raw_state);
-      - id: page5
-        lambda: |-
-          it.printf(0, 0, id(arial_font), "Base: %.0f", id(base).raw_state);
-      - id: page6
-        lambda: |-
-          it.printf(0, 0, id(arial_font), "ADCO: %f", id(adco).raw_state);
+          it.printf(0, 0, id(arial_font), "UMOY1: %f", id(UMOY1).raw_state);
 
 interval:
-  - interval: 1s
+  - interval: 3s
     then:
       - display.page.show_next: oled
       - component.update: oled

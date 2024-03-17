@@ -1,0 +1,307 @@
+# ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
+
+esphome:
+  name: teleinfokit-std
+  friendly_name: teleinfokit-std
+
+esp8266:
+  board: esp01_1m
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  password: !secret ota_key
+  
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "TeleInfoKit-std"
+    password: !secret wifi_ap_key
+
+logger:
+  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
+  level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
+  esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
+
+uart:
+  id: uart_bus
+  rx_pin: GPIO3
+  baud_rate: 9600
+  parity: EVEN
+  data_bits: 7
+
+teleinfo:
+  id: myteleinfo
+  update_interval: 5s
+  historical_mode: false
+  uart_id: uart_bus
+
+captive_portal:
+
+image:
+  - file: mdi:flash
+    id: flash
+    resize: 32x32
+  - file: mdi:power-plug-outline
+    id: plug
+    resize: 32x32
+  - file: mdi:counter
+    id: meter
+    resize: 32x32
+
+sensor:
+  - platform: teleinfo
+    tag_name: "EAST"
+    id: EAST
+    name: "Energie active soutirée totale"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF01"
+    id: EASF01
+    name: "Energie active soutirée Fournisseur, index 01"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF02"
+    id: EASF02
+    name: "Energie active soutirée Fournisseur, index 02"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF03"
+    id: EASF03
+    name: "Energie active soutirée Fournisseur, index 03"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF04"
+    id: EASF04
+    name: "Energie active soutirée Fournisseur, index 04"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASD01"
+    id: EASD01
+    name: "Energie active soutirée Distributeur, index 01"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASD02"
+    id: EASD02
+    name: "Energie active soutirée Distributeur, index 02"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASD03"
+    id: EASD03
+    name: "Energie active soutirée Distributeur, index 03"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASD04"
+    id: EASD04
+    name: "Energie active soutirée Distributeur, index 04"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "SINSTS"
+    id: SINSTS
+    name: "Puissance app. Instantanée soutirée"
+    unit_of_measurement: "VA"
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "IRMS1"
+    id: IRMS1
+    name: "Courant efficace, phase 1"
+    unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "URMS1"
+    id: URMS1
+    name: "Tension efficace, phase 1"
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+
+text_sensor:
+  - platform: teleinfo
+    tag_name: "ADSC"
+    id: ADSC
+    name: "Adresse Secondaire du Compteur"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "NTARF"
+    id: NTARF
+    name: "Numéro de l’index tarifaire en cours"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "VTIC"
+    id: VTIC
+    name: "Version de la TIC"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "LTARF"
+    id: LTARF
+    name: "Label de l’index tarifaire en cours"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "NGTF"
+    id: NGTF
+    name: "Nom du calendrier tarifaire fournisseur"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "MSG1"
+    id: MSG1
+    name: "Message court"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+
+i2c:
+  sda: GPIO0
+  scl: GPIO2
+
+
+graph:
+  # Show bare-minimum auto-ranged graph
+  - id: power_graph
+    sensor: SINSTS
+    duration: 1h
+    width: 128
+    height: 32
+    x_grid: 10min
+
+font:
+  - file: "arial.ttf"
+    id: arial_font
+    size: 10
+  - file: 'slkscr.ttf'
+    id: font1
+    size: 10
+
+  - file: 'BebasNeue-Regular.ttf'
+    id: font2
+    size: 16
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x32"
+    id: oled
+    rotation: 180°
+    address: 0x3C
+    pages:
+      - id: page1
+        lambda: |-
+          it.image(0, 0, id(flash));
+          it.printf(35, 0, id(font1), "Puissance:");
+          it.printf(35, 10, id(font2), "%.0f VA", id(SINSTS).state);
+      - id: page2
+        lambda: |-
+          it.image(0, 0, id(plug));
+          it.printf(35, 5, id(arial_font), "Tension: %.0fV", id(URMS1).state);
+          it.printf(35, 18, id(arial_font), "Intensite: %.0fA", id(IRMS1).state);
+      - id: page3
+        lambda: |-
+          it.image(0, 0, id(meter));
+          it.printf(35, 5, id(arial_font), "Index 1: %.3f", id(EASF01).state);
+          it.printf(35, 18, id(arial_font), "Index 2: %.3f", id(EASF02).state);
+      - id: page4
+        lambda: |-
+          it.image(0, 0, id(meter));
+          it.printf(35, 5, id(arial_font), "Index 3: %.3f", id(EASF03).state);
+          it.printf(35, 18, id(arial_font), "Index 4: %.3f", id(EASF04).state);
+      - id: page5
+        lambda: |-
+          it.graph(0, 0, id(power_graph));
+
+interval:
+  - interval: 5s
+    then:
+      - display.page.show_next: oled
+      - component.update: oled
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode: INPUT_PULLUP
+      inverted: True
+    name: teleinfokit_switch
+    internal: true
+    on_click:
+      min_length: 50ms
+      max_length: 350ms
+      then:
+        - lambda: if (id(oled).is_on()) id(oled).turn_off(); else id(oled).turn_on();
