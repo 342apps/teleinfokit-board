@@ -1,4 +1,6 @@
 # ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
+# Configuration pour TIC en mode STANDARD
+# Fichier secrets.yaml à créer
 
 esphome:
   name: teleinfokit
