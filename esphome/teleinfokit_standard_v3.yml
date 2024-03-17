@@ -1,0 +1,177 @@
+# ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
+# Configuration pour TIC en mode STANDARD
+# Fichier secrets.yaml à créer
+
+esphome:
+  name: teleinfokit
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "TeleInfoKit"
+    password: !secret ap_key
+
+captive_portal:
+
+logger:     
+  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
+  level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
+  esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
+
+# Enable Home Assistant API
+api:
+  password: !secret api_pass
+
+ota:
+  password: !secret ota_pass
+  id: my_ota
+
+uart:
+  id: uart_bus
+  rx_pin: GPIO3
+  baud_rate: 9600
+  parity: EVEN
+  data_bits: 7
+
+teleinfo:
+  id: myteleinfo
+  update_interval: 5s
+  historical_mode: false
+  uart_id: uart_bus
+
+sensor:
+  - platform: teleinfo
+    tag_name: "EAST"
+    id: EAST
+    name: "Energie active soutirée totale"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF01"
+    id: EASF01
+    name: "Energie active soutirée Fournisseur, index 01"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "EASF02"
+    id: EASF02
+    name: "Energie active soutirée Fournisseur, index 02"
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 3
+    icon: mdi:flash
+    device_class: energy
+    state_class: total_increasing
+    teleinfo_id: myteleinfo
+    filters:
+      - multiply: 0.001
+  - platform: teleinfo
+    tag_name: "SINSTS"
+    id: SINSTS
+    name: "Puissance app. Instantanée soutirée"
+    unit_of_measurement: "VA"
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "IRMS1"
+    id: IRMS1
+    name: "Courant efficace, phase 1"
+    unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "UMOY1"
+    id: UMOY1
+    name: "Tension moyenne, phase 1"
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "NTARF"
+    id: NTARF
+    name: "Numéro de l’index tarifaire en cours"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "ADSC"
+    id: ADSC
+    name: "Adresse Secondaire du Compteur"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "VTIC"
+    id: VTIC
+    name: "Version de la TIC"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "LTARF"
+    id: LTARF
+    name: "Label de l’index tarifaire en cours"
+    icon: mdi:flash
+    teleinfo_id: myteleinfo
+
+i2c:
+  sda: GPIO0
+  scl: GPIO2
+
+font:
+  - file: "arial.ttf"
+    id: arial_font
+    size: 16
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x32"
+    id: oled
+    rotation: 180°
+    address: 0x3C
+    pages:
+      - id: page1
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "SINTS: %f", id(SINSTS).state);
+      - id: page2
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "IRMS1: %f", id(IRMS1).state);
+      - id: page3
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "UMOY1: %f", id(UMOY1).raw_state);
+
+interval:
+  - interval: 3s
+    then:
+      - display.page.show_next: oled
+      - component.update: oled
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode: INPUT_PULLUP
+      inverted: True
+    name: teleinfokit_switch
+    internal: true
+    on_click:
+      min_length: 50ms
+      max_length: 350ms
+      then:
+        - lambda: if (id(oled).is_on()) id(oled).turn_off(); else id(oled).turn_on();

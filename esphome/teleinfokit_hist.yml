@@ -1,35 +1,35 @@
 # ESPHome configuration file for teleinfokit module https://342apps.net/module-teleinfokit/
+# Configuration pour TIC en mode HISTORIQUE
+# Fichier secrets.yaml à créer
 
 esphome:
-  name: teleinfokit
-  platform: ESP8266
+  name: teleinfokit-std
+  friendly_name: teleinfokit-std
+
+esp8266:
   board: esp01_1m
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_key
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "TeleInfoKit"
-    password: !secret ap_key
-
-captive_portal:
-
-# Enable logging
-logger:     
-  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
-  level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
-  esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
 
 # Enable Home Assistant API
 api:
-  password: !secret api_pass
+  encryption:
+    key: !secret api_key
 
 ota:
-  password: !secret ota_pass
-  id: my_ota
+  password: !secret ota_key
+  
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "TeleInfoKit-std"
+    password: !secret wifi_ap_key
+
+logger:
+  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
+  level: INFO   # INFO for less log, put DEBUG to view all the linky's "étiquettes" received  in the logs
+  esp8266_store_log_strings_in_flash: False     #  :doc:`recommanded for ESP8266 </components/sensor/custom>`
 
 uart:
   id: uart_bus
@@ -42,6 +42,8 @@ teleinfo:
   id: myteleinfo
   update_interval: 30s
   historical_mode: true
+
+captive_portal:
 
 sensor:
   - platform: teleinfo
@@ -97,6 +99,11 @@ sensor:
     state_class: "measurement"
     icon: mdi:flash
     teleinfo_id: myteleinfo
+  - platform: teleinfo
+    tag_name: "ADCO"
+    id: adco
+    name: "ADCO"
+    teleinfo_id: myteleinfo
 
 i2c:
   sda: GPIO0
@@ -128,10 +135,13 @@ display:
           it.printf(0, 0, id(arial_font), "HC: %.0f", id(hchc).raw_state);
       - id: page5
         lambda: |-
-          it.printf(0, 0, id(arial_font), "BASE: %.0f", id(base).raw_state);
+          it.printf(0, 0, id(arial_font), "Base: %.0f", id(base).raw_state);
+      - id: page6
+        lambda: |-
+          it.printf(0, 0, id(arial_font), "ADCO: %f", id(adco).raw_state);
 
 interval:
-  - interval: 2s
+  - interval: 1s
     then:
       - display.page.show_next: oled
       - component.update: oled
