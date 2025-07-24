@@ -24,7 +24,7 @@
 <layer number="14" name="Route14" color="22" fill="1" visible="no" active="no"/>
 <layer number="15" name="Route15" color="23" fill="1" visible="no" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="no" active="yes"/>
-<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="no" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="no" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
 <layer number="20" name="Dimension" color="24" fill="1" visible="yes" active="yes"/>
@@ -367,9 +367,6 @@
 <wire x1="34.29" y1="0" x2="10.16" y2="0" width="0.1524" layer="51"/>
 <text x="38.735" y="13.462" size="0.889" layer="25" font="vector" ratio="15">S1</text>
 <rectangle x1="43.18" y1="5.08" x2="48.26" y2="10.16" layer="25"/>
-<dimension x1="3.81" y1="8.89" x2="0" y2="8.89" x3="1.905" y3="11.43" textsize="1.778" layer="47"/>
-<dimension x1="3.81" y1="8.89" x2="3.81" y2="3.81" x3="15.24" y3="6.35" textsize="1.778" layer="47"/>
-<dimension x1="3.81" y1="3.81" x2="3.81" y2="0" x3="20.32" y3="1.905" textsize="1.778" layer="47"/>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
