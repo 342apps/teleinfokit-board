@@ -12170,23 +12170,23 @@ by exp-lbrs.ulp</description>
 <pad name="GND" x="-11.43" y="-5.715" drill="1"/>
 <text x="10.16" y="12.7" size="1.27" layer="25">&gt;NAME</text>
 <text x="10.16" y="10.795" size="1.27" layer="27">&gt;VALUE</text>
-<text x="-16.002" y="-3.175" size="1.27" layer="21" align="center-left">3V3</text>
-<text x="-13.208" y="-8.255" size="1.27" layer="21" align="center-right">5V</text>
-<text x="-13.208" y="-5.715" size="1.27" layer="21" align="center-right">GND</text>
-<text x="-13.462" y="-0.635" size="1.27" layer="21" align="center-left">4</text>
-<text x="-13.462" y="1.905" size="1.27" layer="21" align="center-left">3</text>
-<text x="-13.462" y="4.445" size="1.27" layer="21" align="center-left">2</text>
-<text x="-13.462" y="6.985" size="1.27" layer="21" align="center-left">1</text>
-<text x="-13.462" y="9.525" size="1.27" layer="21" align="center-left">0</text>
-<text x="5.588" y="9.525" size="1.27" layer="21" align="center-left">21</text>
-<text x="5.588" y="6.985" size="1.27" layer="21" align="center-left">20</text>
-<text x="5.588" y="4.445" size="1.27" layer="21" align="center-left">10</text>
-<text x="5.588" y="1.905" size="1.27" layer="21" align="center-left">9</text>
-<text x="5.588" y="-0.635" size="1.27" layer="21" align="center-left">8</text>
-<text x="5.588" y="-3.175" size="1.27" layer="21" align="center-left">7</text>
-<text x="5.588" y="-5.715" size="1.27" layer="21" align="center-left">6</text>
-<text x="5.588" y="-8.255" size="1.27" layer="21" align="center-left">5</text>
-<text x="-5.842" y="-8.255" size="1.27" layer="21" align="center-left">-USB-</text>
+<text x="-5.842" y="-8.255" size="1.27" layer="48" align="center-left">-USB-</text>
+<text x="-16.002" y="-3.175" size="1.27" layer="48" align="center-left">3V3</text>
+<text x="-13.208" y="-8.255" size="1.27" layer="48" align="center-right">5V</text>
+<text x="-13.208" y="-5.715" size="1.27" layer="48" align="center-right">GND</text>
+<text x="-13.462" y="-0.635" size="1.27" layer="48" align="center-left">4</text>
+<text x="-13.462" y="1.905" size="1.27" layer="48" align="center-left">3</text>
+<text x="-13.462" y="4.445" size="1.27" layer="48" align="center-left">2</text>
+<text x="-13.462" y="6.985" size="1.27" layer="48" align="center-left">1</text>
+<text x="-13.462" y="9.525" size="1.27" layer="48" align="center-left">0</text>
+<text x="5.588" y="9.525" size="1.27" layer="48" align="center-left">21</text>
+<text x="5.588" y="6.985" size="1.27" layer="48" align="center-left">20</text>
+<text x="5.588" y="4.445" size="1.27" layer="48" align="center-left">10</text>
+<text x="5.588" y="1.905" size="1.27" layer="48" align="center-left">9</text>
+<text x="5.588" y="-0.635" size="1.27" layer="48" align="center-left">8</text>
+<text x="5.588" y="-3.175" size="1.27" layer="48" align="center-left">7</text>
+<text x="5.588" y="-5.715" size="1.27" layer="48" align="center-left">6</text>
+<text x="5.588" y="-8.255" size="1.27" layer="48" align="center-left">5</text>
 </package>
 </packages>
 <symbols>
@@ -13182,7 +13182,7 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="P+2" gate="1" pin="+5V"/>
 </segment>
 </net>
-<net name="N$2" class="0">
+<net name="SDA" class="0">
 <segment>
 <pinref part="OLED" gate="G$1" pin="SDA"/>
 <wire x1="129.54" y1="48.26" x2="154.94" y2="48.26" width="0.1524" layer="91"/>
@@ -13194,9 +13194,10 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="I2C" gate="A" pin="1"/>
 <pinref part="U$1" gate="G$1" pin="G8"/>
 <wire x1="104.14" y1="60.96" x2="129.54" y2="60.96" width="0.1524" layer="91"/>
+<label x="124.46" y="60.96" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
-<net name="N$6" class="0">
+<net name="SCL" class="0">
 <segment>
 <pinref part="OLED" gate="G$1" pin="SCL"/>
 <wire x1="132.08" y1="45.72" x2="157.48" y2="45.72" width="0.1524" layer="91"/>
@@ -13208,6 +13209,7 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="I2C" gate="A" pin="2"/>
 <pinref part="U$1" gate="G$1" pin="G9"/>
 <wire x1="104.14" y1="63.5" x2="132.08" y2="63.5" width="0.1524" layer="91"/>
+<label x="132.08" y="60.96" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="RXD" class="0">
@@ -13312,7 +13314,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="139.7" y1="71.12" x2="104.14" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$10" class="0">
+<net name="IO5" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="5"/>
 <wire x1="114.3" y1="20.32" x2="114.3" y2="53.34" width="0.1524" layer="91"/>
@@ -13320,7 +13322,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="114.3" y1="53.34" x2="104.14" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$14" class="0">
+<net name="IO6" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="G6"/>
 <pinref part="JP1" gate="A" pin="4"/>
@@ -13328,7 +13330,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="116.84" y1="55.88" x2="116.84" y2="20.32" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$16" class="0">
+<net name="IO7" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="3"/>
 <pinref part="U$1" gate="G$1" pin="G7"/>
@@ -13336,7 +13338,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="119.38" y1="58.42" x2="104.14" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$17" class="0">
+<net name="IO10" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="G10"/>
 <wire x1="104.14" y1="66.04" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
@@ -13344,7 +13346,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="121.92" y1="66.04" x2="121.92" y2="20.32" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$18" class="0">
+<net name="IO4" class="0">
 <segment>
 <pinref part="JP2" gate="A" pin="2"/>
 <pinref part="U$1" gate="G$1" pin="G4"/>
@@ -13352,7 +13354,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="48.26" y1="60.96" x2="68.58" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$19" class="0">
+<net name="IO3" class="0">
 <segment>
 <pinref part="JP2" gate="A" pin="3"/>
 <pinref part="U$1" gate="G$1" pin="G3"/>
@@ -13360,7 +13362,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="45.72" y1="63.5" x2="68.58" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$20" class="0">
+<net name="IO2" class="0">
 <segment>
 <pinref part="JP2" gate="A" pin="4"/>
 <pinref part="U$1" gate="G$1" pin="G2"/>
@@ -13368,7 +13370,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="43.18" y1="66.04" x2="68.58" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$21" class="0">
+<net name="IO1" class="0">
 <segment>
 <pinref part="JP2" gate="A" pin="5"/>
 <pinref part="U$1" gate="G$1" pin="G1"/>
@@ -13379,11 +13381,6 @@ Grid 5.00 mm&lt;p&gt;
 </nets>
 </sheet>
 </sheets>
-<errors>
-<approved hash="104,1,137.16,43.18,OLED,VCC,+3V3,,,"/>
-<approved hash="104,1,144.78,116.84,U1,VCC,+3V3,,,"/>
-<approved hash="104,1,165.1,167.64,J1,VBUS,+5V,,,"/>
-</errors>
 </schematic>
 </drawing>
 <compatibility>
