@@ -12,17 +12,13 @@ Ce module est également compatible avec un firmware généré par [ESPHome](htt
 
 Le fichier de configuration compatible avec ce module ainsi que toute la documentation est disponible dans le dossier [esphome](./esphome/). Ce firmware offre cependant moins de fonctionnalités que le firmware natif.
 
-## Schéma
-
-![schema](documentation/schematics.png)
-
-Fichier source [schematics Eagle](eagle/teleinfokit.sch)
-
 ## PCB
 
-![pcb](documentation/board.png)
+![schema](documentation/board_hw4.png)
 
-Fichier source [board Eagle](eagle/teleinfokit.brd)
+Fichier source [schematics Eagle](eagle/v4/schematics.sch)
+
+Les versions hardware 3 et 4 sont disponibles dans leurs [répertoires dédiés](/eagle/).
 
 ### Gerber files
 
